@@ -1,6 +1,7 @@
 package com.hegdeapps.mathz
 
 import android.widget.TextView
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import java.security.SecureRandom
 import java.util.*
@@ -25,27 +26,29 @@ class QuizViewModel:ViewModel(){
     private val STAR_MINUS = 6
     val mOprType: Array<Int> = arrayOf(PLUS_PLUS, PLUS_MINUS, MINUS_MINUS, PLUS_STAR, STAR_PLUS, STAR_MINUS)
 
-    private var mLevel = 1
-    internal var mScore = 0
+    private var mLevel = MutableLiveData<Int>()
+     var mScore = MutableLiveData<Int>()
 
     var mAnswer: Int = 0
-    var mQuestionNum = 1;
+    var mQuestionNum = MutableLiveData<Int>()
 
     init{
         mRandom = SecureRandom();
         mRandom.setSeed(Calendar.getInstance().timeInMillis)
+        mLevel.value = 1
+        mQuestionNum .value= 1
+        mScore.value = 0
     }
      fun createQuestion():Question {
 
-       // tvQuestionNum.text ="Question "+ mQuestionNum.toString() + " of 10"
-        if (mLevel == 1) {
+        if (mLevel.value == 1) {
             return createSimpleArithQuestion()
             // createWordQuestion()
-        } else if (mLevel == 2) {
+        } else if (mLevel.value == 2) {
             return createOptionedQuestion()
-        } else if (mLevel == 3) {
+        } else if (mLevel.value == 3) {
             return createFillInQuestion()
-        } else if (mLevel == 4) {
+        } else if (mLevel.value == 4) {
             return createLargestSmallestQuestion()
         } else    {
             return createWordQuestion()
@@ -53,31 +56,11 @@ class QuizViewModel:ViewModel(){
 
     }
 
-   /* private fun showQuizEndMessage() {
-        var d: Dialog = Dialog(this)
-        d.requestWindowFeature(Window.FEATURE_NO_TITLE)
-        d.setContentView(R.layout.quizendlayout)
 
-        var yesbtn = d.findViewById<Button>(R.id.yesbutton)
-        var nobtn = d.findViewById<Button>(R.id.nobutton)
-
-        var message = d.findViewById<TextView>(R.id.msg)
-        message.typeface = mTypeface
-        yesbtn.setOnClickListener() {
-            d.dismiss()
-            restartGame()
-        }
-        nobtn.setOnClickListener() {
-            d.dismiss()
-            finish()
-        }
-        d.show()
-    }
-*/
     private fun restartGame() {
-        mLevel = 1
-        mScore = 0
-        mQuestionNum = 1
+        mLevel.value = 1
+        mScore.value = 0
+        mQuestionNum.value = 1
         createQuestion()
     }
 
@@ -154,19 +137,7 @@ class QuizViewModel:ViewModel(){
        val qn:Question = Question(questionString,a.toString(),b.toString(),c.toString(),
                d.toString(),correctAnswerNum)
        return qn
-        //  hideButtons(false)
-      /*  btnAns1.text = a.toString().trim()
-        btnAns2.text = b.toString().trim()
-        btnAns3.text = c.toString().trim()
-        btnAns4.text = d.toString().trim()
-        when (mCorrectAnswerNum) {
-            0 -> btnAns1.text = num.toString().trim()
-            1 -> btnAns2.text = num.toString().trim()
-            2 -> btnAns3.text = num.toString().trim()
-            3 -> btnAns4.text = num.toString().trim()
-        }
-        mAnswer = num
-*/
+
 
     }
 
@@ -210,7 +181,7 @@ class QuizViewModel:ViewModel(){
             expressions[i] = a.toString() + operators[0] + b.toString() + operators[1] + c.toString()
             answers[i] = d
         }
-        // clearScreen()
+
         var correctAnswerNum:Int = 0
         var typeOfQuestion = mRandom.nextInt(2)
         if (typeOfQuestion == 0) {
@@ -220,11 +191,7 @@ class QuizViewModel:ViewModel(){
             var smallestIndex: Int = findSmallestIndex(answers)
             correctAnswerNum = smallestIndex
         }
-        // hideButtons(false)
-        /*btnAns1.text = expressions[0]
-        btnAns2.text = expressions[1]
-        btnAns3.text = expressions[2]
-        btnAns4.text = expressions[3]*/
+
         val questionText = when(typeOfQuestion) {
             0 ->
                 " Largest = ?"
@@ -262,8 +229,7 @@ class QuizViewModel:ViewModel(){
     }
 
     private fun createFillInQuestion() :Question{
-        //   layout.setBackgroundResource(R.drawable.orangegradient)
-        //   setTheme(R.style.GreenTheme)
+
         var operatorIndex: Int = mRandom.nextInt(4)
         var operator: String = operatorArr[operatorIndex]
         var maxNum = 0
@@ -315,14 +281,10 @@ class QuizViewModel:ViewModel(){
                 answer2.toString(),answer3.toString(),answer4.toString(),
                 correctAnswer)
         return qn
-        // tvQuestionNum.setText("Qn#"+mQuestionNum.toString())
-      //  showAnswers(wrongAnswer1, wrongAnswer2, wrongAnswer3)
-    }
+           }
 
     private fun createOptionedQuestion():Question {
 
-        // layout.setBackgroundResource(R.drawable.greengradient)
-        //  setTheme(R.style.GreenTheme)
         mAnswer = mRandom.nextInt(60) + 15
         val typeOfQuestion = mRandom.nextInt(2)
 
@@ -338,9 +300,6 @@ class QuizViewModel:ViewModel(){
             mAnswer = num1 * num2
             ansString = num1.toString() + " X " + num2.toString()
         }
-        /*  var numAns2 = numAns1+5
-          var numAns3 = numAns1 -2
-          var numAns4 = numAns1+3*/
 
         var num2 = mRandom.nextInt(mAnswer) + 2
         var temp = mAnswer - num2 + 10
@@ -357,7 +316,7 @@ class QuizViewModel:ViewModel(){
         //   clearScreen()
         val questionText = (mAnswer.toString() + "=?")
         var correctAnswer: Int = mRandom.nextInt(4)+1
-       // mCorrectAnswerNum = correctAnswer
+
         when (correctAnswer) {
             1-> answer1= ansString
             2 -> answer2 = ansString
@@ -368,30 +327,10 @@ class QuizViewModel:ViewModel(){
                 answer2,answer3,answer4,
                 correctAnswer)
         return qn
-        //  tvQuestionNum.text = "Qn#"+mQuestionNum.toString()
-       // showLongerAnswers(ansString, wrongAnswerString1, wrongAnswerString2, wrongAnswerString3, wrongAnswerString4)
-    }
+           }
 
-   /* private fun showLongerAnswers(ansString: String, wrongAnswerString1: String, wrongAnswerString2: String, wrongAnswerString3: String, wrongAnswerString4: String) {
-        //   hideButtons(false)
-        btnAns1.setText(wrongAnswerString1)
-        btnAns2.setText(wrongAnswerString2)
-        btnAns3.setText(wrongAnswerString3)
-        btnAns4.setText(wrongAnswerString4)
-        var correctAnswer: Int = mRandom.nextInt(4)
-        mCorrectAnswerNum = correctAnswer
-        when (correctAnswer) {
-            0 -> btnAns1.text = ansString
-            1 -> btnAns2.text = ansString
-            2 -> btnAns3.text = ansString
-            3 -> btnAns4.text = ansString
-        }
-        // tvQuestionNum.text = "Qn#" + mQuestionNum.toString()
-    }
-*/
-    private fun createSimpleArithQuestion():Question {
-        //    setTheme(R.style.PurpleTheme)
-        //  clearScreen()
+      private fun createSimpleArithQuestion():Question {
+
         var operatorIndex: Int = mRandom.nextInt(4)
         var operator: String = operatorArr[operatorIndex]
         var maxNum = 0
@@ -434,9 +373,7 @@ class QuizViewModel:ViewModel(){
         }
         var wrongAnswer3: Int = mAnswer + 10
         var wrongAnswer4 = mAnswer-3
-        //    clearScreen()
-      //  showAnswers(wrongAnswer1, wrongAnswer2, wrongAnswer3)
-        val questionText = (num1.toString() + " " + operator + " " + num2.toString() + "=?")
+            val questionText = (num1.toString() + " " + operator + " " + num2.toString() + "=?")
        var correctAnswer: Int = mRandom.nextInt(4)+1
        //     mCorrectAnswerNum = correctAnswer
        when (correctAnswer) {
@@ -452,38 +389,7 @@ class QuizViewModel:ViewModel(){
 
     }
 
-   /* private fun showAnswers(wrongAnswer1: Int, wrongAnswer2: Int, wrongAnswer3: Int) {
-        var wrongAnswer4: Int = wrongAnswer1 + 6
-        //hideButtons(false)
 
-
-        btnAns1.text = wrongAnswer1.toString().trim()
-        btnAns2.text = wrongAnswer2.toString().trim()
-        btnAns3.text = wrongAnswer3.toString().trim()
-        btnAns4.text = wrongAnswer4.toString().trim()
-
-
-        var correctAnswer: Int = mRandom.nextInt(4)
-        mCorrectAnswerNum = correctAnswer
-        when (correctAnswer) {
-            0 -> btnAns1.text = mAnswer.toString().trim()
-            1 -> btnAns2.text = mAnswer.toString().trim()
-            2 -> btnAns3.text = mAnswer.toString().trim()
-            3 -> btnAns4.text = mAnswer.toString().trim()
-        }
-
-    }
-*/
-  /*  override fun onClick(view: View) {
-        var id: Int = view.id;
-        when (id) {
-            R.id.ans1,
-            R.id.ans2,
-            R.id.ans3,
-            R.id.ans4 -> checkAnswer(view as TextView)
-
-        }
-    }*/
 
 
      fun checkAnswer(view: TextView,correctAnswerNum:Int):String {
@@ -500,101 +406,46 @@ class QuizViewModel:ViewModel(){
         val message:String
         if (correctAnswer) {
             mNumCorr++
-           // tvMessage.visibility = View.VISIBLE
-            message = CORRECT_STRING//"Correct !!!"
-          /*  var green = resources.getColor(R.color.green)
-            tvMessage.setTextColor(green)*/
-            mScore = mScore + 1000
-            //     tvScore.setText("Score:" + mScore.toString())
-        } else {
-            /*tvMessage.visibility = View.VISIBLE*/
-            message=WRONG_STRING// "Wrong!"
-          /*  var red = resources.getColor(R.color.red)
-            tvMessage.setTextColor(red)
 
-            tvMessage.setTextColor(Color.RED)*/
-            /* }*/
+            message = CORRECT_STRING//"Correct !!!"
+
+            mScore.value = mScore.value?.plus(1000)
+
+        } else {
+
+            message=WRONG_STRING// "Wrong!"
+
         }
         return message
 
-
-       // createDelay()
     }
 
-   /* private fun createDelay2() {
-
-        Thread {
-            Thread.sleep(500)
-
-        }.start()
-
-    }*/
-
-   /* private fun checkLongAnswers(view: TextView) {
-        var str = view.text.toString()
-        var ans = evaluate(str)
-        if (ans == mAnswer) {
-            tvMessage.visibility = View.VISIBLE
-            tvMessage.text = "Correct!"
-            mNumCorr++
-            mScore += 1000
-        } else {
-            tvMessage.visibility = View.VISIBLE
-            tvMessage.text = "Wrong!"
-        }
 
 
-    }*/
 
-    //TODO split the array into sub elements and evaluate
-   /* private fun evaluate(str: String): Int {
-        var opList: List<String> = str.split(" ")
-        var n1 = opList.get(0).toInt()
-        var n2 = opList.get(2).toInt()
-        var operator = opList.get(1)
-        var answer: Int = 0
-        when (operator) {
-            "+" -> answer = n1 + n2
-            "-" -> answer = n1 - n2
-            "X" -> answer = n1 * n2
-        }
-        return answer
-
-
-    }
-*/
-  /*  private fun createDelay() {
-
-        Thread {
-            Thread.sleep(1000)
-            runOnUiThread {
-                startNextQuiz()
-            }
-        }.start()
-    }*/
 
       fun startNextQuiz():String {
        // showAnimation()
-        mQuestionNum++
-        if (mQuestionNum > NUM_QNS && mLevel == 5) {
+        mQuestionNum.value = mQuestionNum.value?.plus(1)
+        if (mQuestionNum.value!! > NUM_QNS && mLevel.value == 5) {
             return QUIZ_END//"QuizEnd"//showQuizEndMessage();
         } else {
-            if (mQuestionNum > NUM_QNS) {
+            if (mQuestionNum.value!! > NUM_QNS) {
 
                 if (mNumCorr < MIN_REQD) {
-                    mQuestionNum = 1
+                    mQuestionNum.value = 1
                     mNumCorr = 0
                     return LEVEL_NOT_CLEARED// "Sorry. Level not cleared"
 
                 } else {
                     //  tvLevel
-                    mLevel++;
+                    mLevel.value = mLevel.value?.plus(1)
 
 
-                    mQuestionNum = 1;
+                    mQuestionNum.value = 1;
                     mNumCorr = 0
                     return   LEVEL_CLEARED// "Level Cleared!!!"
-                    // tvLevel.text = "L:"+mLevel.toString()
+                    // tvLevel.text = "L:"+mLevel.value.toString()
                 }
                 // clearScreen()
             } else {
@@ -605,8 +456,8 @@ class QuizViewModel:ViewModel(){
     }
 
     fun clearCounters() {
-        mLevel = 1
-        mScore = 0
-        mQuestionNum = 1
+        mLevel.value = 1
+        mScore.value= 0
+        mQuestionNum.value = 1
      }
 }

@@ -37,10 +37,8 @@
         android:layout_gravity="center|center_horizontal"
         android:layout_marginStart="20dp"
         android:layout_marginLeft="20dp"
-        android:layout_marginTop="20dp"
         android:layout_marginEnd="20dp"
         android:layout_marginRight="20dp"
-        android:layout_marginBottom="20dp"
         android:gravity="center"
         android:text=" "
         android:textColor="@color/text_color"
@@ -118,9 +116,8 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="5dp"
                     android:layout_weight="1"
-                    android:background="@drawable/buttonbg"
-                    android:foreground="?selectableItemBackground"
-
+                    style="@style/Widget.AppCompat.Button.Colored"
+                    android:elevation="5dp"
                     android:gravity="center"
 
                     android:text="Button"
@@ -132,10 +129,10 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="5dp"
                     android:layout_weight="1"
-                    android:background="@drawable/buttonbg"
-                    android:foreground="?selectableItemBackground"
+                    style="@style/Widget.AppCompat.Button.Colored"
                     android:gravity="center"
                     android:text="Button"
+                    android:elevation="5dp"
                     android:textAppearance="?android:attr/textAppearanceMedium" />
             </TableRow>
 
@@ -149,10 +146,9 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="5dp"
                     android:layout_weight="1"
-                    android:background="@drawable/buttonbg"
-                    android:foreground="?selectableItemBackground"
+                    style="@style/Widget.AppCompat.Button.Colored"
                     android:gravity="center"
-
+                    android:elevation="5dp"
                     android:text="Button"
                     android:textAppearance="?android:attr/textAppearanceMedium" />
 
@@ -162,10 +158,9 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="5dp"
                     android:layout_weight="1"
-                    android:background="@drawable/buttonbg"
-                    android:foreground="?selectableItemBackground"
+                    style="@style/Widget.AppCompat.Button.Colored"
                     android:gravity="center"
-
+                    android:elevation="5dp"
                     android:text="Button"
                     android:textAppearance="?android:attr/textAppearanceMedium" />
             </TableRow>
