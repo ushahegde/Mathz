@@ -1,0 +1,5 @@
+<resources>
+    <dimen name="text_size_question">28sp</dimen>
+    <dimen name="message_size">26sp</dimen>
+    <dimen name="dialog_text_size">38sp</dimen>
+</resources>

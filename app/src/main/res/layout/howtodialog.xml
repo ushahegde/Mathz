@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:minHeight="400dp"
+              android:minWidth="500dp"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:background="@color/colorDarkGreen">
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="HOW TO PLAY GAME"
+        android:textColor="#fff"
+        android:id="@+id/text1"/>
+    <Button
+        android:layout_gravity="center"
+        android:background="@drawable/buttonbg"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/okbutton"
+        android:textColor="#fff"
+        android:textAppearance="@style/TextAppearance.AppCompat.Title"
+        android:text="OK"/>
+
+</LinearLayout>

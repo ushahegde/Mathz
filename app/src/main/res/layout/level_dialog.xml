@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        android:text="Game Mode" />
+
+    <Button
+        android:id="@+id/minutemode"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/buttonbg"
+        android:baselineAligned="false"
+        android:foreground="?android:attr/selectableItemBackground"
+        android:layout_margin="10dp"
+        android:textColor="@color/white"
+
+        android:text="One Minute" />
+
+    <Button
+        android:id="@+id/tenquestionmode"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/buttonbg"
+        android:baselineAligned="false"
+        android:foreground="?android:attr/selectableItemBackground"
+        android:layout_margin="10dp"
+        android:textColor="@color/white"
+        android:text="10 Questions" />
+
+ <!--   <TextView
+        android:id="@+id/textView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Select Level"
+        android:textSize="20sp" />
+
+    <Button
+        android:id="@+id/easy"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:background="@drawable/buttonbg"
+        android:baselineAligned="false"
+        android:foreground="?android:attr/selectableItemBackground"
+        android:text="Easy"
+        android:textColor="@color/white" />-->
+
+  <!--  <Button
+        android:id="@+id/medium"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:background="@drawable/buttonbg"
+        android:foreground="?android:attr/selectableItemBackground"
+        android:text="Medium"
+        android:textColor="@color/white" />-->
+
+   <!-- <Button
+        android:id="@+id/difficult"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:background="@drawable/buttonbg"
+        android:foreground="?android:attr/selectableItemBackground"
+        android:text="Difficult"
+        android:textColor="@color/white" />
+    <Button
+        android:id="@+id/geometry"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:background="@drawable/buttonbg"
+        android:foreground="?android:attr/selectableItemBackground"
+        android:text="Geometry"
+        android:textColor="@color/white" />-->
+</LinearLayout>
